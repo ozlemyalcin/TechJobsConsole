@@ -28,7 +28,7 @@ namespace TechJobsConsole
 
             foreach (Dictionary<string, string> job in AllJobs)
             {
-                string aValue = job[column];
+                string aValue = job[column];  //name:"Junior Data Analyst"   employer": "Lockerdome"
 
                 if (!values.Contains(aValue))
                 {
@@ -48,6 +48,7 @@ namespace TechJobsConsole
             foreach (Dictionary<string, string> row in AllJobs)
             {
                 string aValue = row[column];
+                aValue = aValue.ToLower();
 
                 if (aValue.Contains(value))
                 {
@@ -56,6 +57,35 @@ namespace TechJobsConsole
             }
 
             return jobs;
+        }
+
+        public static List<Dictionary<string, string>> FindByValue(string value)
+        {
+            LoadData();//load
+
+            value = value.ToLower();
+
+            List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string, string> row in AllJobs)
+            {
+                foreach(KeyValuePair<string,string> item in row)
+                {
+                    string avalue = item.Value;
+                    avalue = avalue.ToLower();
+
+                    if (!avalue.Contains(value))
+                    {
+                        continue;
+                    }
+                    jobs.Add(row);
+
+                }
+
+            }
+             
+            return jobs;
+
         }
 
         /*

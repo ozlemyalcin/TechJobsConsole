@@ -40,9 +40,9 @@ namespace TechJobsConsole
                     }
                     else
                     {
-                        List<string> results = JobData.FindAll(columnChoice);
+                        List<string> results = JobData.FindAll(columnChoice); //position,employer..
 
-                        Console.WriteLine("\n*** All " + columnChoices[columnChoice] + " Values ***");
+                        Console.WriteLine("\n*** All " + columnChoices[columnChoice] + " Values ***"); //
                         foreach (string item in results)
                         {
                             Console.WriteLine(item);
@@ -57,13 +57,16 @@ namespace TechJobsConsole
                     // What is their search term?
                     Console.WriteLine("\nSearch term: ");
                     string searchTerm = Console.ReadLine();
+                    searchTerm = searchTerm.ToLower();
 
                     List<Dictionary<string, string>> searchResults;
 
                     // Fetch results
                     if (columnChoice.Equals("all"))
                     {
-                        Console.WriteLine("Search all fields not yet implemented.");
+                        searchResults = JobData.FindByValue(searchTerm);
+                        PrintJobs(searchResults);
+                        //Console.WriteLine("Search all fields not yet implemented.");
                     }
                     else
                     {
@@ -100,7 +103,7 @@ namespace TechJobsConsole
                 }
 
                 string input = Console.ReadLine();
-                choiceIdx = int.Parse(input);
+               choiceIdx = int.Parse(input);
 
                 if (choiceIdx < 0 || choiceIdx >= choiceKeys.Length)
                 {
@@ -116,9 +119,29 @@ namespace TechJobsConsole
             return choiceKeys[choiceIdx];
         }
 
+
+
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            Console.WriteLine("PrintJobs is not implemented yet");
+            if (someJobs.Count > 0) //exist
+            {
+                foreach (Dictionary<string, string> item in someJobs)
+                {
+                    Console.WriteLine("***********\n");
+
+                    foreach (KeyValuePair<string, string> value in item)
+                    {
+                        Console.WriteLine($"{value.Key} : {value.Value}");
+                    }
+                }
+                Console.WriteLine("***************\n");
+
+            }
+            else //;
+            {
+                Console.WriteLine("No results");
+            }
+          
         }
     }
 }
