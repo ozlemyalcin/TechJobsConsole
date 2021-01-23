@@ -63,7 +63,7 @@ namespace TechJobsConsole
         {
             LoadData();//load
 
-            value = value.ToLower();
+            value = value.ToLower(); //python
 
             List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
 
@@ -72,13 +72,12 @@ namespace TechJobsConsole
                 foreach(KeyValuePair<string,string> item in row)
                 {
                     string avalue = item.Value;
-                    avalue = avalue.ToLower();
+                    avalue = avalue.ToLower(); //
 
-                    if (!avalue.Contains(value))
-                    {
-                        continue;
+                    if (avalue.Contains(value) && !jobs.Contains(row)) { 
+                        jobs.Add(row);
                     }
-                    jobs.Add(row);
+                    
 
                 }
 
